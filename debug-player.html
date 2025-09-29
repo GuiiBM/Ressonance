@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Player</title>
+    <style>
+        body { 
+            background: #121212; 
+            color: white; 
+            font-family: Arial, sans-serif; 
+            padding: 20px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #333;
+            border-radius: 8px;
+        }
+        button {
+            background: #1db954;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        audio {
+            width: 100%;
+            margin: 10px 0;
+        }
+        .log {
+            background: #1d1d1d;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Debug do Player de Música</h1>
+    
+    <div class="test-section">
+        <h2>Teste 1: Arquivo Direto</h2>
+        <p>Testando acesso direto ao arquivo de áudio:</p>
+        <audio controls>
+            <source src="/Ressonance/audio.php?f=13_1758990614.mp3" type="audio/mpeg">
+            Seu navegador não suporta o elemento de áudio.
+        </audio>
+        <button onclick="testDirectAccess()">Testar Acesso Direto</button>
+    </div>
+    
+    <div class="test-section">
+        <h2>Teste 2: Player JavaScript</h2>
+        <p>Testando o player JavaScript:</p>
+        <button onclick="testJSPlayer()">Testar Player JS</button>
+        <button onclick="testPlayPause()">Play/Pause</button>
+        <button onclick="testStop()">Stop</button>
+        <audio id="testAudio" controls style="width: 100%; margin: 10px 0;"></audio>
+    </div>
+    
+    <div class="test-section">
+        <h2>Teste 3: Função playSong</h2>
+        <p>Testando a função playSong do sistema:</p>
+        <button onclick="testPlaySong()">Testar playSong()</button>
+    </div>
+    
+    <div class="test-section">
+        <h2>Log de Debug</h2>
+        <div id="debugLog" class="log"></div>
+        <button onclick="clearLog()">Limpar Log</button>
+    </div>
+
+    <script>
+        const debugLog = document.getElementById('debugLog');
+        const testAudio = document.getElementById('testAudio');
+        
+        function log(message) {
+            const timestamp = new Date().toLocaleTimeString();
+            debugLog.innerHTML += `[${timestamp}] ${message}<br>`;
+            debugLog.scrollTop = debugLog.scrollHeight;
+            console.log(message);
+        }
+        
+        function clearLog() {
+            debugLog.innerHTML = '';
+        }
+        
+        function testDirectAccess() {
+            log('Testando acesso direto ao arquivo...');
+            const url = '/Ressonance/audio.php?f=13_1758990614.mp3';
+            
+            fetch(url)
+                .then(response => {
+                    log(`Status: ${response.status} ${response.statusText}`);
+                    log(`Content-Type: ${response.headers.get('content-type')}`);
+                    log(`Content-Length: ${response.headers.get('content-length')}`);
+                    
+                    if (response.ok) {
+                        log('✓ Arquivo acessível via HTTP');
+                    } else {
+                        log('✗ Erro ao acessar arquivo');
+                    }
+                })
+                .catch(error => {
+                    log(`✗ Erro de rede: ${error.message}`);
+                });
+        }
+        
+        function testJSPlayer() {
+            log('Testando player JavaScript...');
+            const url = '/Ressonance/audio.php?f=13_1758990614.mp3';
+            
+            testAudio.src = url;
+            testAudio.load();
+            
+            testAudio.addEventListener('loadstart', () => log('loadstart: Iniciando carregamento'));
+            testAudio.addEventListener('loadedmetadata', () => log('loadedmetadata: Metadados carregados'));
+            testAudio.addEventListener('loadeddata', () => log('loadeddata: Dados carregados'));
+            testAudio.addEventListener('canplay', () => log('canplay: Pode começar a reproduzir'));
+            testAudio.addEventListener('canplaythrough', () => log('canplaythrough: Pode reproduzir completamente'));
+            testAudio.addEventListener('error', (e) => {
+                log(`error: Erro no áudio - ${e.target.error?.message || 'Erro desconhecido'}`);
+            });
+        }
+        
+        function testPlayPause() {
+            if (testAudio.paused) {
+                testAudio.play()
+                    .then(() => log('✓ Reprodução iniciada'))
+                    .catch(error => log(`✗ Erro ao reproduzir: ${error.message}`));
+            } else {
+                testAudio.pause();
+                log('Reprodução pausada');
+            }
+        }
+        
+        function testStop() {
+            testAudio.pause();
+            testAudio.currentTime = 0;
+            log('Reprodução parada');
+        }
+        
+        function testPlaySong() {
+            log('Testando função playSong...');
+            
+            // Simular a função playSong
+            const audioFiles = [
+                { format: 'mp3', path: '13_1758990614.mp3' }
+            ];
+            
+            if (typeof playSong === 'function') {
+                playSong('Teste', 'Artista Teste', audioFiles);
+                log('✓ Função playSong chamada');
+            } else {
+                log('✗ Função playSong não encontrada');
+                
+                // Simular manualmente
+                const audioUrl = '/Ressonance/audio.php?f=' + encodeURIComponent(audioFiles[0].path);
+                log(`URL gerada: ${audioUrl}`);
+                
+                testAudio.src = audioUrl;
+                testAudio.load();
+                testAudio.play()
+                    .then(() => log('✓ Reprodução manual iniciada'))
+                    .catch(error => log(`✗ Erro na reprodução manual: ${error.message}`));
+            }
+        }
+        
+        // Log inicial
+        log('Debug do player iniciado');
+        log('Verificando se há arquivos de áudio disponíveis...');
+    </script>
+</body>
+</html>
