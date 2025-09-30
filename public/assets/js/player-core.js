@@ -227,7 +227,7 @@ function getAudioUrl(filePath) {
     }
     
     // Se é apenas o nome do arquivo, usa o sistema de streaming
-    return '/Ressonance/audio.php?f=' + encodeURIComponent(filePath);
+    return window.APP_CONFIG.BASE_URL + '/audio.php?f=' + encodeURIComponent(filePath);
 }
 
 function showNotification(message, type = 'info') {

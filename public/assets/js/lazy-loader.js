@@ -41,7 +41,7 @@ class LazyLoader {
         try {
             // Ajustar offset para pular as 6 músicas já carregadas
             const offset = page === 2 ? 6 : (page - 1) * 12;
-            const response = await fetch(`/Ressonance/app/controllers/api/songs.php?action=get_songs&page=${page}&limit=12&offset=${offset}`);
+            const response = await fetch(`${window.APP_CONFIG.API_BASE_URL}/songs.php?action=get_songs&page=${page}&limit=12&offset=${offset}`);
             const data = await response.json();
             
             if (data.success && data.data.length > 0) {
@@ -58,7 +58,7 @@ class LazyLoader {
     
     async loadArtists(page) {
         try {
-            const response = await fetch(`/Ressonance/app/controllers/api/songs.php?action=get_artists&page=${page}&limit=10`);
+            const response = await fetch(`${window.APP_CONFIG.API_BASE_URL}/songs.php?action=get_artists&page=${page}&limit=10`);
             const data = await response.json();
             
             if (data.success) {

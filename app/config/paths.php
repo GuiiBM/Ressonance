@@ -17,7 +17,7 @@ define('UPLOAD_PATH', STORAGE_PATH . '/uploads');
 define('AUDIO_UPLOAD_PATH', UPLOAD_PATH . '/audio');
 
 // URLs públicas
-define('BASE_URL', '/Ressonance');
+define('BASE_URL', '/Ressonance/Ressonance');
 define('ASSETS_URL', BASE_URL . '/public/assets');
 define('CSS_URL', ASSETS_URL . '/css');
 define('JS_URL', ASSETS_URL . '/js');

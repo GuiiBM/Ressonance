@@ -14,17 +14,17 @@ $logoUrl = SITE_LOGO;
     </div>
     <nav class="nav">
         <ul>
-            <li><a href="/Ressonance/">HOME</a></li>
-            <li><a href="/Ressonance/albums.php">ÁLBUNS</a></li>
-            <li><a href="/Ressonance/artists.php">ARTISTAS</a></li>
-            <li><a href="/Ressonance/all-songs.php">MÚSICAS</a></li>
+            <li><a href="<?= BASE_URL ?>/">HOME</a></li>
+            <li><a href="<?= BASE_URL ?>/albums.php">ÁLBUNS</a></li>
+            <li><a href="<?= BASE_URL ?>/artists.php">ARTISTAS</a></li>
+            <li><a href="<?= BASE_URL ?>/all-songs.php">MÚSICAS</a></li>
         </ul>
     </nav>
     <div class="profile">
         <?php if (isLoggedIn()): ?>
-            <a href="/Ressonance/profile.php"><i class="fas fa-user"></i> <?= htmlspecialchars($_SESSION['user_name']) ?></a>
+            <a href="<?= BASE_URL ?>/profile.php"><i class="fas fa-user"></i> <?= htmlspecialchars($_SESSION['user_name']) ?></a>
         <?php else: ?>
-            <a href="/Ressonance/login.php"><i class="fas fa-user"></i> ENTRAR</a>
+            <a href="<?= BASE_URL ?>/login.php"><i class="fas fa-user"></i> ENTRAR</a>
         <?php endif; ?>
     </div>
 </header>

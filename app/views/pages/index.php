@@ -16,7 +16,7 @@ $pageTitle = 'Home';
         <section class="recommendations">
             <div class="section-header">
                 <h3>MÚSICAS QUE VOCÊ PODE GOSTAR</h3>
-                <a href="/Ressonance/all-songs.php" class="see-all-btn">Ver Todas</a>
+                <a href="<?= BASE_URL ?>/all-songs.php" class="see-all-btn">Ver Todas</a>
             </div>
             <div class="playlist-grid">
                 <?php 
@@ -34,9 +34,8 @@ $pageTitle = 'Home';
                         }
                     }
                 ?>
-                <?php $songImage = !empty($song['image']) ? $song['image'] : 'https://via.placeholder.com/160x160/1db954/ffffff?text=%E2%99%AA'; ?>
-                <div class="playlist-item" onclick="playMusic('<?= htmlspecialchars($song['title'], ENT_QUOTES) ?>', '<?= htmlspecialchars($song['artist_name'], ENT_QUOTES) ?>', <?= htmlspecialchars(json_encode($audioFiles), ENT_QUOTES) ?>, '<?= htmlspecialchars($songImage, ENT_QUOTES) ?>')">
-                    <img src="<?= htmlspecialchars($songImage) ?>" alt="<?= htmlspecialchars($song['title']) ?>" onerror="this.src='https://via.placeholder.com/160x160/8a2be2/ffffff?text=%E2%99%AA'">
+                <div class="playlist-item" onclick="playMusic('<?= htmlspecialchars($song['title'], ENT_QUOTES) ?>', '<?= htmlspecialchars($song['artist_name'], ENT_QUOTES) ?>', <?= htmlspecialchars(json_encode($audioFiles), ENT_QUOTES) ?>, '<?= htmlspecialchars(getImageUrl($song['image']), ENT_QUOTES) ?>')">
+                    <?= fixImageTag($song['image'], $song['title']) ?>
                     <div class="playlist-item-content">
                         <h4><?= htmlspecialchars($song['title']) ?></h4>
                         <p><?= htmlspecialchars($song['artist_name']) ?></p>
@@ -59,7 +58,7 @@ $pageTitle = 'Home';
         <section class="albums-section">
             <div class="section-header">
                 <h3>ÁLBUNS RECENTES</h3>
-                <a href="/Ressonance/albums.php" class="see-all-btn">Ver Todos</a>
+                <a href="<?= BASE_URL ?>/albums.php" class="see-all-btn">Ver Todos</a>
             </div>
             <div class="albums-scroll">
                 <?php 
@@ -68,7 +67,7 @@ $pageTitle = 'Home';
                 foreach($albums as $album): 
                 ?>
                 <div class="album-card" onclick="openAlbumModal(<?= $album['id'] ?>)">
-                    <img src="<?= htmlspecialchars($album['image']) ?>" alt="<?= htmlspecialchars($album['title']) ?>">
+                    <?= fixImageTag($album['image'], $album['title']) ?>
                     <h4><?= htmlspecialchars($album['title']) ?></h4>
                     <p><?= htmlspecialchars($album['artist_name']) ?></p>
                 </div>
@@ -79,7 +78,7 @@ $pageTitle = 'Home';
         <section class="new-artists">
             <div class="section-header">
                 <h3>ARTISTAS NOVOS</h3>
-                <a href="/Ressonance/artists.php" class="see-all-btn">Ver Todos</a>
+                <a href="<?= BASE_URL ?>/artists.php" class="see-all-btn">Ver Todos</a>
             </div>
             <div class="artists-scroll" id="artistsContainer">
                 <!-- Artistas carregados dinamicamente -->

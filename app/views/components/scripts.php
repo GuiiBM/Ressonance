@@ -1,3 +1,5 @@
+<script src="<?= JS_URL ?>/config.js"></script>
+<script src="<?= JS_URL ?>/image-handler.js"></script>
 <script src="<?= JS_URL ?>/player-core.js"></script>
 <?php if (basename($_SERVER['PHP_SELF']) === 'index.php'): ?>
 <script src="<?= JS_URL ?>/lazy-loader.js"></script>
@@ -56,7 +58,7 @@ async function openAlbumModal(albumId) {
     songsContainer.innerHTML = '<div class="loading-placeholder"><div class="loading-spinner"></div><p>Carregando músicas...</p></div>';
     
     try {
-        const response = await fetch(`/Ressonance/app/controllers/api/songs.php?action=get_album_songs&album_id=${albumId}`);
+        const response = await fetch(`${window.APP_CONFIG.API_BASE_URL}/songs.php?action=get_album_songs&album_id=${albumId}`);
         const data = await response.json();
         
         if (data.success && data.album) {
@@ -217,7 +219,7 @@ window.playFromPlaylist = function(index) {
         
         if (song.audio_files && song.audio_files.length > 0) {
             // Carregar a música diretamente
-            const audioUrl = '/Ressonance/audio.php?f=' + encodeURIComponent(song.audio_files[0].path);
+            const audioUrl = window.APP_CONFIG.BASE_URL + '/audio.php?f=' + encodeURIComponent(song.audio_files[0].path);
             
             if (typeof window.loadSong === 'function') {
                 window.loadSong({

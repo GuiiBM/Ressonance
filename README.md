@@ -1,6 +1,46 @@
-# Ressonance - Estrutura Organizada
+# 🎵 Ressonance - Sistema de Streaming Musical
 
-## Arquitetura de Pastas
+> **Sistema completo de streaming de música com correção automática de caminhos e configuração zero**
+
+## 🚀 Início Rápido
+
+1. **Instalar**: Extrair para `C:\xampp\htdocs\Ressonance\`
+2. **Iniciar**: XAMPP → Start Apache + MySQL
+3. **Acessar**: `http://localhost/Ressonance/Ressonance/`
+4. **Pronto!** Sistema detecta primeira execução e se configura automaticamente
+
+> ✨ **Configuração Zero**: Na primeira vez que acessar, o sistema:
+> - Detecta automaticamente onde está instalado
+> - Cria todas as pastas necessárias
+> - Configura banco de dados
+> - Ajusta todos os caminhos
+> - **Funciona em qualquer máquina sem configuração manual!**
+
+## 📚 Documentação Completa
+
+**👉 [Acesse a documentação completa em `docs/`](docs/README.md)**
+
+- 📖 **Iniciantes**: [01-introducao/](docs/01-introducao/) - Instalação e primeiro uso
+- 🏗️ **Desenvolvedores**: [02-arquitetura/](docs/02-arquitetura/) - Como o código funciona
+- 🔧 **Problemas**: [09-manutencao/01-troubleshooting.md](docs/09-manutencao/01-troubleshooting.md) - Soluções rápidas
+
+## 🛠️ Ferramentas de Diagnóstico
+
+- **[fix-paths.php](fix-paths.php)** - Corrige caminhos automaticamente
+- **[health-check.php](health-check.php)** - Verifica saúde do sistema
+- **[verify-system.php](verify-system.php)** - Verificação completa de integridade
+
+## ✨ Principais Funcionalidades
+
+- 🎵 **Streaming de música** (MP3, FLAC, WAV, OGG)
+- 🤖 **Configuração automática** (zero configuração manual)
+- 🛣️ **Correção automática de caminhos** (funciona em qualquer servidor)
+- 🖼️ **Sistema de imagens** com correção automática
+- 💿 **Organização por álbuns e artistas**
+- 🎼 **Player completo** com controles avançados
+- 📱 **Interface responsiva** e moderna
+
+## 🏗️ Arquitetura de Pastas
 
 ```
 Ressonance/
@@ -100,3 +140,42 @@ Ressonance/
 3. Criar redirecionamento na raiz (opcional)
 
 A estrutura mantém total compatibilidade com URLs existentes através dos redirecionamentos automáticos.
+
+## 🚨 Resolução de Problemas
+
+### ❌ Site não funciona?
+```bash
+# 1. Verificar se Apache/MySQL estão rodando (XAMPP)
+# 2. Acessar: http://localhost/Ressonance/Ressonance/fix-paths.php
+# 3. Se ainda não funcionar: http://localhost/Ressonance/Ressonance/verify-system.php
+```
+
+### ❌ Música não toca?
+```bash
+# 1. Verificar se arquivo MP3 está em: audio/
+# 2. Testar: http://localhost/Ressonance/Ressonance/audio.php?f=sua_musica.mp3
+# 3. Verificar console do navegador (F12) para erros
+```
+
+### ❌ Imagens não aparecem?
+```bash
+# Sistema corrige automaticamente, mas se persistir:
+# 1. Aguardar alguns segundos na página
+# 2. Executar: fix-paths.php
+# 3. Limpar cache do navegador (Ctrl+F5)
+```
+
+## 🎯 Status do Sistema
+
+- ✅ **Primeira Execução**: Detecção e configuração automática
+- ✅ **Configuração**: 100% automática (zero configuração manual)
+- ✅ **Caminhos**: Correção automática implementada
+- ✅ **Banco de dados**: Criação automática na primeira execução
+- ✅ **Estrutura**: Criação automática de pastas essenciais
+- ✅ **Documentação**: Completa e organizada
+- ✅ **Testes**: Verificação de integridade implementada
+- ✅ **Portabilidade**: Funciona em qualquer máquina sem ajustes
+
+---
+
+**📚 Para informações detalhadas, consulte a [documentação completa](docs/README.md)**

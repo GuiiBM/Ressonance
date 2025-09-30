@@ -1,0 +1,14 @@
+Options +Indexes
+Allow from all
+<Files "*.mp3">
+    Header set Content-Type "audio/mpeg"
+</Files>
+<Files "*.wav">
+    Header set Content-Type "audio/wav"
+</Files>
+<Files "*.ogg">
+    Header set Content-Type "audio/ogg"
+</Files>
+<Files "*.m4a">
+    Header set Content-Type "audio/mp4"
+</Files>

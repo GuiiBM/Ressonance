@@ -5,6 +5,10 @@ define('DB_USER', 'root');
 define('DB_PASS', '');
 define('DB_NAME', 'ressonance_music');
 
+// Inicializar database na primeira execução
+require_once __DIR__ . '/init-database.php';
+initializeDatabase();
+
 // Conexão com o banco
 try {
     $pdo = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8", DB_USER, DB_PASS);
