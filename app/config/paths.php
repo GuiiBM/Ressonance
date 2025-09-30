@@ -16,8 +16,15 @@ define('IMAGES_PATH', '/public/assets/images');
 define('UPLOAD_PATH', STORAGE_PATH . '/uploads');
 define('AUDIO_UPLOAD_PATH', UPLOAD_PATH . '/audio');
 
+// Auto-detecção de URL
+$scriptPath = $_SERVER['SCRIPT_NAME'] ?? '';
+$detectedUrl = '/Ressonance/Ressonance';
+if (preg_match('/(.+\/Ressonance\/Ressonance)/', $scriptPath, $matches)) {
+    $detectedUrl = $matches[1];
+}
+
 // URLs públicas
-define('BASE_URL', '/Ressonance/Ressonance');
+define('BASE_URL', $detectedUrl);
 define('ASSETS_URL', BASE_URL . '/public/assets');
 define('CSS_URL', ASSETS_URL . '/css');
 define('JS_URL', ASSETS_URL . '/js');

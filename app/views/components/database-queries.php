@@ -5,6 +5,9 @@ class DatabaseQueries {
     private $pdo;
     
     public function __construct($pdo) {
+        if (!$pdo instanceof PDO) {
+            throw new Exception('PDO connection required');
+        }
         $this->pdo = $pdo;
     }
     

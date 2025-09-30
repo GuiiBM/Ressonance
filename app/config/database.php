@@ -1,20 +1,43 @@
 <?php
-// Configuração do banco de dados
-define('DB_HOST', 'localhost');
-define('DB_USER', 'root');
-define('DB_PASS', '');
-define('DB_NAME', 'ressonance_music');
+// Auto-configuração do banco
+$hosts = ['localhost', '127.0.0.1', 'mysql'];
+$users = ['root', 'mysql'];
+$passes = ['', 'root', 'password'];
 
-// Inicializar database na primeira execução
-require_once __DIR__ . '/init-database.php';
-initializeDatabase();
+$connected = false;
+foreach ($hosts as $host) {
+    foreach ($users as $user) {
+        foreach ($passes as $pass) {
+            try {
+                $pdo = new PDO("mysql:host=$host", $user, $pass);
+                $pdo->exec("CREATE DATABASE IF NOT EXISTS ressonance_music");
+                $pdo->exec("USE ressonance_music");
+                
+                // Criar tabelas se necessário
+                $tables = $pdo->query("SHOW TABLES")->fetchAll(PDO::FETCH_COLUMN);
+                if (count($tables) < 3) {
+                    require_once __DIR__ . '/init-database.php';
+                    initializeDatabase();
+                }
+                
+                define('DB_HOST', $host);
+                define('DB_USER', $user);
+                define('DB_PASS', $pass);
+                define('DB_NAME', 'ressonance_music');
+                
+                $pdo = new PDO("mysql:host=$host;dbname=ressonance_music;charset=utf8", $user, $pass);
+                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $connected = true;
+                break 3;
+            } catch (Exception $e) {
+                continue;
+            }
+        }
+    }
+}
 
-// Conexão com o banco
-try {
-    $pdo = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8", DB_USER, DB_PASS);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch(PDOException $e) {
-    die("Erro na conexão: " . $e->getMessage());
+if (!$connected) {
+    die('Erro: MySQL não encontrado. Verifique se está rodando.');
 }
 
 // Função para buscar álbuns recentes

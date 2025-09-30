@@ -25,13 +25,15 @@ $pageTitle = 'Home';
                 
                 foreach($initialSongs as $song): 
                     $audioFiles = [];
-                    if ($song['audio_files']) {
+                    if (isset($song['audio_files']) && $song['audio_files']) {
                         foreach (explode('|', $song['audio_files']) as $fileData) {
                             if (strpos($fileData, ':') !== false) {
                                 list($format, $path) = explode(':', $fileData, 2);
                                 $audioFiles[] = ['format' => $format, 'path' => $path];
                             }
                         }
+                    } else {
+                        $audioFiles[] = ['format' => 'mp3', 'path' => $song['file_path'] ?? 'demo.mp3'];
                     }
                 ?>
                 <div class="playlist-item" onclick="playMusic('<?= htmlspecialchars($song['title'], ENT_QUOTES) ?>', '<?= htmlspecialchars($song['artist_name'], ENT_QUOTES) ?>', <?= htmlspecialchars(json_encode($audioFiles), ENT_QUOTES) ?>, '<?= htmlspecialchars(getImageUrl($song['image']), ENT_QUOTES) ?>')">

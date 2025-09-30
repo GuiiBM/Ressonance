@@ -1,8 +1,5 @@
 <?php
-// Inicialização comum para todas as páginas
-// PRIMEIRO: Garantir configuração na primeira execução
-require_once '../../config/first-run.php';
-require_once '../../config/path-checker.php';
+// Inicialização original restaurada
 require_once '../../config/paths.php';
 require_once '../../config/database.php';
 require_once '../../config/auth.php';
@@ -10,7 +7,7 @@ require_once 'config-common.php';
 require_once 'database-queries.php';
 require_once 'image-helper.php';
 
-// Iniciar sessão e gerar token CSRF
+// Iniciar sessão
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }

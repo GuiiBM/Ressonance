@@ -3,7 +3,11 @@
 
 // Configurações de site
 define('SITE_NAME', 'RESSONANCE');
-define('SITE_LOGO', IMAGES_URL . '/logo.png');
+if (defined('IMAGES_URL')) {
+    define('SITE_LOGO', IMAGES_URL . '/logo.png');
+} else {
+    define('SITE_LOGO', (defined('RESSONANCE_URL') ? RESSONANCE_URL : '/Ressonance/Ressonance') . '/public/assets/images/logo.png');
+}
 
 // Configurações de upload
 define('UPLOAD_DIR', 'storage/uploads/audio/');

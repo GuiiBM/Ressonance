@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www/html
+      - ./storage:/var/www/html/storage
+    environment:
+      - DB_HOST=mysql
+      - DB_USER=ressonance
+      - DB_PASS=ressonance123
+      - DB_NAME=ressonance_music
+    depends_on:
+      - mysql
+    networks:
+      - ressonance-network
+
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: ressonance_music
+      MYSQL_USER: ressonance
+      MYSQL_PASSWORD: ressonance123
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "3306:3306"
+    networks:
+      - ressonance-network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: root
+      PMA_PASSWORD: root123
+    ports:
+      - "8081:80"
+    depends_on:
+      - mysql
+    networks:
+      - ressonance-network
+
+volumes:
+  mysql_data:
+
+networks:
+  ressonance-network:
+    driver: bridge

@@ -14,9 +14,13 @@ function getImageUrl($imagePath) {
         return $imagePath;
     }
     
+    // Detectar BASE_URL
+    $baseUrl = defined('BASE_URL') ? BASE_URL : 
+               (defined('RESSONANCE_URL') ? RESSONANCE_URL : '/Ressonance/Ressonance');
+    
     // Extrair apenas o nome do arquivo
     $fileName = basename($imagePath);
-    return BASE_URL . '/image.php?f=' . urlencode($fileName);
+    return $baseUrl . '/image.php?f=' . urlencode($fileName);
 }
 
 function fixImageTag($imagePath, $alt = '', $class = '', $style = '') {
