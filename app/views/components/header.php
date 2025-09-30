@@ -6,7 +6,8 @@ $logoUrl = SITE_LOGO;
     <div class="header-left">
         <div class="logo-container">
             <?php if (!empty($logoUrl)): ?>
-                <img src="<?= htmlspecialchars($logoUrl) ?>" alt="Ressonance" class="logo-image">
+                <img src="<?= getImageUrl($logoUrl) ?>" alt="Ressonance" class="logo-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div class="logo-text" style="display: none;">RESSONANCE</div>
             <?php else: ?>
                 <div class="logo-text">RESSONANCE</div>
             <?php endif; ?>

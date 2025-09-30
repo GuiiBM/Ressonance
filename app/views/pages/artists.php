@@ -20,7 +20,7 @@ $artists = $db->getAllArtists();
             <div class="artists-grid">
                 <?php foreach($artists as $artist): ?>
                 <div class="artist-card-page">
-                    <img src="<?= htmlspecialchars($artist['image']) ?>" alt="<?= htmlspecialchars($artist['name']) ?>">
+                    <?= fixImageTag($artist['image'], $artist['name']) ?>
                     <h4><?= htmlspecialchars($artist['name']) ?></h4>
                 </div>
                 <?php endforeach; ?>

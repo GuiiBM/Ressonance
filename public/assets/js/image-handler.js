@@ -28,6 +28,13 @@ window.ImageHandler = {
             if (originalSrc !== correctedSrc) {
                 img.src = correctedSrc;
             }
+            
+            // Adicionar fallback se não tiver
+            if (!img.onerror) {
+                img.onerror = function() {
+                    this.src = 'https://via.placeholder.com/160x160/8a2be2/ffffff?text=%E2%99%AA';
+                };
+            }
         });
     },
     
@@ -41,6 +48,12 @@ window.ImageHandler = {
                             const src = node.getAttribute('src');
                             if (src) {
                                 node.src = this.getImageUrl(src);
+                                // Adicionar fallback
+                                if (!node.onerror) {
+                                    node.onerror = function() {
+                                        this.src = 'https://via.placeholder.com/160x160/8a2be2/ffffff?text=%E2%99%AA';
+                                    };
+                                }
                             }
                         }
                         
@@ -49,6 +62,12 @@ window.ImageHandler = {
                             const src = img.getAttribute('src');
                             if (src) {
                                 img.src = this.getImageUrl(src);
+                                // Adicionar fallback
+                                if (!img.onerror) {
+                                    img.onerror = function() {
+                                        this.src = 'https://via.placeholder.com/160x160/8a2be2/ffffff?text=%E2%99%AA';
+                                    };
+                                }
                             }
                         });
                     }

@@ -17,7 +17,8 @@ foreach ($possiblePaths as $path) {
 }
 
 if (!$imagePath || !file_exists($imagePath)) {
-    http_response_code(404);
+    // Retornar imagem placeholder em vez de 404
+    header('Location: https://via.placeholder.com/160x160/8a2be2/ffffff?text=%E2%99%AA');
     exit;
 }
 

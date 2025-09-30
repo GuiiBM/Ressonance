@@ -22,7 +22,7 @@ $pageTitle = 'Álbuns';
                 foreach($albums as $album): 
                 ?>
                 <div class="album-card-page" onclick="openAlbumModal(<?= $album['id'] ?>)">
-                    <img src="<?= htmlspecialchars($album['image']) ?>" alt="<?= htmlspecialchars($album['title']) ?>">
+                    <?= fixImageTag($album['image'], $album['title']) ?>
                     <h4><?= htmlspecialchars($album['title']) ?></h4>
                     <p><?= htmlspecialchars($album['artist_name']) ?></p>
                     <small><?= $album['song_count'] ?> música<?= $album['song_count'] != 1 ? 's' : '' ?></small>

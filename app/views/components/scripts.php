@@ -64,7 +64,8 @@ async function openAlbumModal(albumId) {
         if (data.success && data.album) {
             document.getElementById('albumTitle').textContent = data.album.title;
             document.getElementById('albumArtist').textContent = data.album.artist_name;
-            document.getElementById('albumCover').src = data.album.image;
+            const albumCover = document.getElementById('albumCover');
+            albumCover.src = window.ImageHandler ? window.ImageHandler.getImageUrl(data.album.image) : data.album.image;
             
             songsContainer.innerHTML = '';
             

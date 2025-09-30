@@ -47,9 +47,9 @@ $pageTitle = 'Todas as Músicas';
                             }
                         }
                     ?>
-                    <div class="song-item" onclick="playMusic('<?= htmlspecialchars($song['title'], ENT_QUOTES) ?>', '<?= htmlspecialchars($song['artist_name'], ENT_QUOTES) ?>', <?= htmlspecialchars(json_encode($audioFiles), ENT_QUOTES) ?>)">
+                    <div class="song-item" onclick="playMusic('<?= htmlspecialchars($song['title'], ENT_QUOTES) ?>', '<?= htmlspecialchars($song['artist_name'], ENT_QUOTES) ?>', <?= htmlspecialchars(json_encode($audioFiles), ENT_QUOTES) ?>, '<?= htmlspecialchars(getImageUrl($song['image'] ?? ''), ENT_QUOTES) ?>')">
                         <div class="song-cover">
-                            <img src="https://via.placeholder.com/200x200/1db954/ffffff?text=%E2%99%AA" alt="<?= htmlspecialchars($song['title']) ?>">
+                            <?= fixImageTag($song['image'] ?? '', $song['title'], '', 'width: 200px; height: 200px;') ?>
                             <div class="play-overlay">
                                 <i class="fas fa-play"></i>
                             </div>

@@ -107,10 +107,10 @@ class AllSongsLoader {
         const albumInfo = song.album_title ? `<span class="album-info">${song.album_title}</span>` : '';
         
         if (this.currentView === 'grid') {
-            const songImage = song.image && song.image !== 'NULL' ? song.image : 'https://via.placeholder.com/200x200/1db954/ffffff?text=♪';
+            const songImage = window.ImageHandler ? window.ImageHandler.getImageUrl(song.image) : (song.image && song.image !== 'NULL' ? song.image : 'https://via.placeholder.com/200x200/8a2be2/ffffff?text=♪');
             div.innerHTML = `
                 <div class="song-cover">
-                    <img src="${songImage}" alt="${song.title}">
+                    <img src="${songImage}" alt="${song.title}" onerror="this.src='https://via.placeholder.com/200x200/8a2be2/ffffff?text=♪'">
                     <div class="play-overlay">
                         <i class="fas fa-play"></i>
                     </div>
@@ -123,10 +123,10 @@ class AllSongsLoader {
                 </div>
             `;
         } else {
-            const songImage = song.image && song.image !== 'NULL' ? song.image : 'https://via.placeholder.com/60x60/1db954/ffffff?text=♪';
+            const songImage = window.ImageHandler ? window.ImageHandler.getImageUrl(song.image) : (song.image && song.image !== 'NULL' ? song.image : 'https://via.placeholder.com/60x60/8a2be2/ffffff?text=♪');
             div.innerHTML = `
                 <div class="song-cover-small">
-                    <img src="${songImage}" alt="${song.title}">
+                    <img src="${songImage}" alt="${song.title}" onerror="this.src='https://via.placeholder.com/60x60/8a2be2/ffffff?text=♪'">
                     <div class="play-overlay-small">
                         <i class="fas fa-play"></i>
                     </div>

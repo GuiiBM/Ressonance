@@ -100,6 +100,28 @@ if (is_dir($audioDir)) {
     echo "❌ Pasta de áudio não encontrada<br>";
 }
 
+// Verificar sistema de imagens
+echo "<h2>🖼️ Sistema de Imagens</h2>";
+echo "✅ Servidor de imagens (image.php): " . (file_exists('image.php') ? 'OK' : 'AUSENTE') . "<br>";
+echo "✅ Corretor JavaScript: " . (file_exists('public/assets/js/image-handler.js') ? 'OK' : 'AUSENTE') . "<br>";
+echo "✅ Helper PHP: " . (file_exists('app/views/components/image-helper.php') ? 'OK' : 'AUSENTE') . "<br>";
+
+$imageDir = 'public/assets/images';
+if (is_dir($imageDir)) {
+    $imageFiles = glob($imageDir . '/*.{jpg,jpeg,png,gif,webp}', GLOB_BRACE);
+    $count = count($imageFiles);
+    echo "✅ Pasta de imagens encontrada - $count arquivos<br>";
+} else {
+    echo "❌ Pasta de imagens não encontrada<br>";
+}
+
+// Testar servidor de imagens
+if (file_exists('public/assets/images/logo.png')) {
+    echo "✅ Teste de imagem: <a href='image.php?f=logo.png' target='_blank'>logo.png</a><br>";
+} else {
+    echo "⚠️ Logo não encontrado<br>";
+}
+
 // Resumo final
 echo "<h2>📊 Resumo</h2>";
 $totalIssues = count($missingFiles) + count($missingDirs);
@@ -124,6 +146,7 @@ if ($totalIssues == 0) {
 echo "<br><p>";
 echo "<a href='fix-paths.php'>🔧 Corrigir Caminhos</a> | ";
 echo "<a href='health-check.php'>🏥 Verificar Saúde</a> | ";
+echo "<a href='tests/test-images-fix.php'>🖼️ Testar Imagens</a> | ";
 echo "<a href='index.php'>🏠 Voltar ao Site</a>";
 echo "</p>";
 ?>

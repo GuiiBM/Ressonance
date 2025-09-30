@@ -97,9 +97,9 @@ class LazyLoader {
                 ${song.audio_files.map(file => `<span class="format-badge">${file.format.toUpperCase()}</span>`).join('')}
             </div>` : '';
         
-        const songImage = song.image && song.image !== 'NULL' ? song.image : 'https://via.placeholder.com/160x160/1db954/ffffff?text=%E2%99%AA';
+        const songImage = window.ImageHandler ? window.ImageHandler.getImageUrl(song.image) : (song.image && song.image !== 'NULL' ? song.image : 'https://via.placeholder.com/160x160/1db954/ffffff?text=%E2%99%AA');
         div.innerHTML = `
-            <img src="${songImage}" alt="${song.title}" onerror="this.style.display='none'">
+            <img src="${songImage}" alt="${song.title}" onerror="this.src='https://via.placeholder.com/160x160/8a2be2/ffffff?text=%E2%99%AA'">
             <div class="playlist-item-content">
                 <h4>${song.title}</h4>
                 <p>${song.artist_name}</p>
@@ -125,8 +125,9 @@ class LazyLoader {
     createArtistElement(artist) {
         const div = document.createElement('div');
         div.className = 'artist-card';
+        const artistImage = window.ImageHandler ? window.ImageHandler.getImageUrl(artist.image) : artist.image;
         div.innerHTML = `
-            <img src="${artist.image}" alt="${artist.name}">
+            <img src="${artistImage}" alt="${artist.name}" onerror="this.src='https://via.placeholder.com/160x160/8a2be2/ffffff?text=%E2%99%AA'">
             <h4>${artist.name}</h4>
         `;
         return div;

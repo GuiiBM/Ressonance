@@ -110,13 +110,20 @@ function checkEssentialFiles($basePath, $projectPath) {
         '/audio.php',
         '/image.php', 
         '/index.php',
-        '/public/assets/css/styles.css'
+        '/public/assets/css/styles.css',
+        '/public/assets/js/image-handler.js'
     ];
     
     foreach ($essentialFiles as $file) {
         if (!file_exists($basePath . $file)) {
             error_log("Arquivo essencial não encontrado: $file");
         }
+    }
+    
+    // Verificar se pasta de imagens existe
+    $imageDir = $basePath . '/public/assets/images';
+    if (!is_dir($imageDir)) {
+        mkdir($imageDir, 0755, true);
     }
 }
 
